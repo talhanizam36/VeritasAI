@@ -809,14 +809,24 @@ function ForensicAuditCertificateModal({ result, preview, onClose }) {
             </p>
           </div>
 
-          {/* Official Seals & Signature Footer */}
-          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-[10px] text-slate-500">
-            <div>
-              <p>VERITAS NEURAL FORENSIC ENGINE • PROTOCOL SPECIFICATION RFC-8821</p>
-              <p>Tamper-Evident SHA-256 Ledger Verified • Generated via Deterministic Signal Analysis</p>
+          {/* Official Seals & Signature Footer with Talha Nizam Watermark */}
+          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-[10px] text-slate-400">
+            <div className="space-y-1">
+              <p className="font-semibold text-slate-300">
+                VERITAS FORENSIC LABS • PROTOCOL RFC-8821
+              </p>
+              <p className="text-slate-400">
+                Certified Forensic System • Developed by <span className="text-indigo-400 font-bold">Talha Nizam</span>
+              </p>
+              <p className="text-slate-500 text-[9px]">
+                Tamper-Evident SHA-256 Ledger Verified • Generated via Deterministic Signal Analysis
+              </p>
             </div>
-            <div className="border border-white/10 rounded-lg px-3 py-1.5 bg-black/30 text-slate-400 text-center">
-              OFFICIAL CERTIFIED AUDIT
+            <div className="flex flex-col items-start sm:items-end gap-1">
+              <div className="border border-indigo-500/30 rounded-lg px-3 py-1.5 bg-indigo-500/10 text-indigo-300 font-bold text-center tracking-wider">
+                OFFICIAL CERTIFIED AUDIT
+              </div>
+              <span className="text-[9px] text-slate-500">SYSTEM ARCHITECT: TALHA NIZAM</span>
             </div>
           </div>
         </div>
