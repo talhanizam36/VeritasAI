@@ -394,35 +394,35 @@ function InteractiveForensicLens({
                   <span>{reg.label || `Region #${idx + 1}`}</span>
                 </div>
 
-                {/* Floating Tooltip On Hover (smart positioning: show below when on top area) */}
+                {/* Floating Tooltip On Hover (smart positioning: show below when on top area, mobile responsive width) */}
                 {isHovered && (
                   <div
                     className={`absolute ${
-                      showBelow ? 'top-full mt-2.5' : 'bottom-full mb-2.5'
+                      showBelow ? 'top-full mt-2' : 'bottom-full mb-2'
                     } ${
                       alignLeft
                         ? 'left-0'
                         : alignRight
                         ? 'right-0'
                         : 'left-1/2 -translate-x-1/2'
-                    } w-64 p-3 rounded-xl card-clean-elevated text-left pointer-events-none z-50 animate-slide-up shadow-2xl`}
+                    } w-52 sm:w-64 p-2.5 sm:p-3 rounded-xl card-clean-elevated text-left pointer-events-none z-50 animate-slide-up shadow-2xl max-w-[85vw]`}
                   >
-                    <div className="flex items-center justify-between gap-2 pb-1.5 mb-1.5 border-b border-white/10">
-                      <span className="font-semibold text-xs text-white truncate">
+                    <div className="flex items-center justify-between gap-1.5 pb-1 mb-1 border-b border-white/10">
+                      <span className="font-semibold text-[11px] sm:text-xs text-white truncate">
                         {reg.label}
                       </span>
                       <span
-                        className={`text-[10px] font-mono uppercase px-1.5 py-0.5 rounded border ${sev.badge}`}
+                        className={`text-[9px] sm:text-[10px] font-mono uppercase px-1.5 py-0.5 rounded border ${sev.badge}`}
                       >
                         {reg.severity}
                       </span>
                     </div>
 
-                    <p className="text-[11px] text-slate-300 leading-relaxed mb-2 font-sans">
+                    <p className="text-[10px] sm:text-[11px] text-slate-300 leading-snug sm:leading-relaxed mb-1.5 font-sans">
                       {reg.description}
                     </p>
 
-                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-1.5 border-t border-white/5">
+                    <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono text-slate-400 pt-1 border-t border-white/5">
                       <span>Artifact Confidence</span>
                       <span className={`font-semibold ${sev.text}`}>
                         {Math.round((reg.confidence || 0) * 100)}%
