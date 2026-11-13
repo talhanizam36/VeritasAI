@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #090a0f;
+    --surface: #11131b;
+    --surface-elevated: #161925;
+    --surface-border: rgba(255, 255, 255, 0.08);
+  }
+
+  html {
+    color-scheme: dark;
+    font-family: "Google Sans", "Product Sans", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: var(--background);
+    color: #f1f5f9;
+    min-height: 100vh;
+    letter-spacing: -0.011em;
+  }
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Subtle Micro Grid */
+.bg-subtle-grid {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Clean Professional Glass & Border */
+.card-clean {
+  background: rgba(17, 19, 27, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 1px 2px 0 rgba(0, 0, 0, 0.4),
+    0 12px 32px -8px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+}
+
+.card-clean-elevated {
+  background: rgba(22, 25, 37, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 24px 48px -12px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+}
+
+/* Dropzone state */
+.dropzone-active {
+  border-color: #6366f1 !important;
+  background-color: rgba(99, 102, 241, 0.05) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Refined Scanline Beam */
+@keyframes refinedBeam {
+  0% {
+    top: 0%;
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 100%;
+    opacity: 0.85;
+  }
+}
+
+.scanline-beam-refined {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #38bdf8, #818cf8, transparent);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+  animation: refinedBeam 2.4s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 25;
+}
+
+/* Pulse glow for anomaly boxes */
+@keyframes softPulse {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.soft-pulse {
+  animation: softPulse 2.8s ease-in-out infinite;
+}
+
+/* Print Styles for Official Forensic Audit Certificate */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Ensure card backgrounds and borders print crisply */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    margin: 15mm;
+    size: A4 portrait;
+  }
+}
