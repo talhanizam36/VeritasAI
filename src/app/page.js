@@ -3,6 +3,65 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useDropzone } from 'react-dropzone'
 
+// ── Client-Side Safe Image Optimizer (Guarantees < 4 MB Vercel Serverless Payload) ──
+function optimizeImageForUpload(file) {
+  return new Promise((resolve) => {
+    // If already under 3.5 MB, upload directly without re-compression
+    if (file.size <= 3.5 * 1024 * 1024) {
+      resolve(file)
+      return
+    }
+
+    const img = new Image()
+    const url = URL.createObjectURL(file)
+
+    img.onload = () => {
+      URL.revokeObjectURL(url)
+      const maxDim = 2048
+      let { width, height } = img
+
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width)
+          width = maxDim
+        } else {
+          width = Math.round((width * maxDim) / height)
+          height = maxDim
+        }
+      }
+
+      const canvas = document.createElement('canvas')
+      canvas.width = width
+      canvas.height = height
+      const ctx = canvas.getContext('2d')
+      ctx.drawImage(img, 0, 0, width, height)
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            resolve(file)
+            return
+          }
+          const optimizedFile = new File([blob], file.name, {
+            type: file.type === 'image/png' ? 'image/png' : 'image/jpeg',
+            lastModified: Date.now(),
+          })
+          resolve(optimizedFile)
+        },
+        file.type === 'image/png' ? 'image/png' : 'image/jpeg',
+        0.92
+      )
+    }
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url)
+      resolve(file)
+    }
+
+    img.src = url
+  })
+}
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 
 // ── Severity Configuration (Clean, Modern, Accessible) ───────────────────────
@@ -1182,8 +1241,11 @@ export default function Home() {
     setHoveredRegionIdx(null)
 
     try {
+      // Auto-optimize image client-side if it exceeds Vercel Serverless payload limits
+      const fileToUpload = await optimizeImageForUpload(file)
+
       const formData = new FormData()
-      formData.append('file', file)
+      formData.append('file', fileToUpload)
 
       const endpoint = API_URL ? `${API_URL}/predict` : '/api/predict'
       const res = await fetch(endpoint, {
@@ -1192,6 +1254,9 @@ export default function Home() {
       })
 
       if (!res.ok) {
+        if (res.status === 413) {
+          throw new Error('Image size exceeds Vercel serverless payload limit (4.5 MB). Please select a compressed image or try again.')
+        }
         const text = await res.text()
         throw new Error(`Server returned error (${res.status}): ${text}`)
       }
