@@ -1207,7 +1207,7 @@ export default function Home() {
   const [error, setError] = useState(null)
 
   const [showOverlay, setShowOverlay] = useState(true)
-  const [showScanline, setShowScanline] = useState(true)
+  const [showScanline, setShowScanline] = useState(false)
   const [hoveredRegionIdx, setHoveredRegionIdx] = useState(null)
   const [lensMode, setLensMode] = useState('slider') // 'slider' | 'original' | 'ela'
   const [showAuditModal, setShowAuditModal] = useState(false)
