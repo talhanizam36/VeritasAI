@@ -6,8 +6,9 @@ import { useDropzone } from 'react-dropzone'
 // ── Client-Side Safe Image Optimizer (Guarantees < 4 MB Vercel Serverless Payload) ──
 function optimizeImageForUpload(file) {
   return new Promise((resolve) => {
-    // If already under 3.5 MB, upload directly without re-compression
-    if (file.size <= 3.5 * 1024 * 1024) {
+    // Vercel serverless has a strict 4.5 MB body limit.
+    // If the file is already small (under 2.0 MB), upload directly.
+    if (file.size <= 2.0 * 1024 * 1024) {
       resolve(file)
       return
     }
@@ -17,7 +18,8 @@ function optimizeImageForUpload(file) {
 
     img.onload = () => {
       URL.revokeObjectURL(url)
-      const maxDim = 2048
+      // Cap maximum dimension to 1600px to ensure the encoded JPEG is ~300KB-800KB
+      const maxDim = 1600
       let { width, height } = img
 
       if (width > maxDim || height > maxDim) {
@@ -36,20 +38,22 @@ function optimizeImageForUpload(file) {
       const ctx = canvas.getContext('2d')
       ctx.drawImage(img, 0, 0, width, height)
 
+      // Always compress to high-quality JPEG for large files (PNG can bloat beyond 5MB on canvas)
       canvas.toBlob(
         (blob) => {
           if (!blob) {
             resolve(file)
             return
           }
-          const optimizedFile = new File([blob], file.name, {
-            type: file.type === 'image/png' ? 'image/png' : 'image/jpeg',
+          const baseName = file.name.replace(/\.[^/.]+$/, '')
+          const optimizedFile = new File([blob], `${baseName}.jpg`, {
+            type: 'image/jpeg',
             lastModified: Date.now(),
           })
           resolve(optimizedFile)
         },
-        file.type === 'image/png' ? 'image/png' : 'image/jpeg',
-        0.92
+        'image/jpeg',
+        0.88
       )
     }
 
