@@ -722,33 +722,39 @@ for tag_name, tag_color, tag_desc in badge_items:
     r_bd.font.size = Pt(9.5)
     r_bd.font.color.rgb = COLOR_TEXT_BODY
 
-s5_frame = s5.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(7.1), Inches(1.85), Inches(5.4), Inches(5.0))
-s5_frame.fill.background()
-s5_frame.line.color.rgb = COLOR_NAVY
-s5_frame.line.width = Pt(2.5)
+# Polished Right Column: Clean Container & Perfectly Sized Cropped HUD Image
+img_hud_path = r"D:\TALHA\AI Image Detector\ned_hud_cropped.png"
+if not os.path.exists(img_hud_path):
+    img_hud_path = IMG_NEDIAN_HEATMAP
 
-s5_img_box = s5.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(6.8), Inches(1.65), Inches(5.4), Inches(5.0))
+s5_img_box = s5.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(6.9), Inches(1.65), Inches(5.633), Inches(5.3))
 s5_img_box.fill.solid()
-s5_img_box.fill.fore_color.rgb = COLOR_NAVY
-s5_img_box.line.fill.background()
+s5_img_box.fill.fore_color.rgb = COLOR_LIGHT_BLUE
+s5_img_box.line.color.rgb = COLOR_BORDER
+s5_img_box.line.width = Pt(1)
 
-if os.path.exists(IMG_NEDIAN_HEATMAP):
-    s5.shapes.add_picture(IMG_NEDIAN_HEATMAP, Inches(6.9), Inches(1.75), width=Inches(5.2))
-    
-    c_tag5 = s5.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(6.9), Inches(6.35), Inches(5.2), Inches(0.35))
-    c_tag5.fill.solid()
-    c_tag5.fill.fore_color.rgb = COLOR_NAVY
-    c_tag5.line.fill.background()
-    tf_ct5 = c_tag5.text_frame
-    tf_ct5.vertical_anchor = MSO_ANCHOR.MIDDLE
-    p_ct5 = tf_ct5.paragraphs[0]
-    p_ct5.alignment = PP_ALIGN.CENTER
-    r_ct5 = p_ct5.add_run()
-    r_ct5.text = "CASE STUDY: Multi-Condition Anomaly Localization on Crest"
-    r_ct5.font.name = FONT_BODY
-    r_ct5.font.bold = True
-    r_ct5.font.size = Pt(10)
-    r_ct5.font.color.rgb = COLOR_WHITE
+s5_accent = s5.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(6.9), Inches(1.65), Inches(5.633), Inches(0.08))
+s5_accent.fill.solid()
+s5_accent.fill.fore_color.rgb = COLOR_ORANGE
+s5_accent.line.fill.background()
+
+if os.path.exists(img_hud_path):
+    s5.shapes.add_picture(img_hud_path, Inches(7.1), Inches(1.85), width=Inches(5.233), height=Inches(4.35))
+
+c_tag5 = s5.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(7.1), Inches(6.35), Inches(5.233), Inches(0.4))
+c_tag5.fill.solid()
+c_tag5.fill.fore_color.rgb = COLOR_NAVY
+c_tag5.line.fill.background()
+tf_ct5 = c_tag5.text_frame
+tf_ct5.vertical_anchor = MSO_ANCHOR.MIDDLE
+p_ct5 = tf_ct5.paragraphs[0]
+p_ct5.alignment = PP_ALIGN.CENTER
+r_ct5 = p_ct5.add_run()
+r_ct5.text = "CASE STUDY: Multi-Condition Anomaly Localization on Crest"
+r_ct5.font.name = FONT_BODY
+r_ct5.font.bold = True
+r_ct5.font.size = Pt(10.5)
+r_ct5.font.color.rgb = COLOR_WHITE
 
 set_speaker_notes(s5, "Slide 5 highlights our spatial anomaly HUD. Instead of leaving the user in the dark, Veritas AI draws bounding boxes around specific flaws like boundary discontinuity where an object was pasted, texture inconsistency on airbrushed AI skin, and mismatched corneal specular reflections. We also implemented logo triage to prevent official digital crests from being falsely flagged.")
 
