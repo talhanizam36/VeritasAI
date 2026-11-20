@@ -684,8 +684,8 @@ function ForensicAuditCertificateModal({ result, preview, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-slate-950 border border-white/15 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 text-slate-100 shadow-2xl my-4 sm:my-8 max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md overflow-y-auto print:static print:p-0 print:bg-transparent print:overflow-visible">
+      <div className="relative w-full max-w-4xl bg-slate-950 border border-white/15 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 text-slate-100 shadow-2xl my-4 sm:my-8 max-h-[92vh] overflow-y-auto print:max-h-none print:overflow-visible print:border print:border-white/20 print:p-4 print:my-0 print:rounded-none">
         {/* Top Control Bar (Sticky & Hidden when printing) */}
         <div className="no-print sticky top-0 z-20 bg-slate-950/95 backdrop-blur-sm flex items-center justify-between pb-4 mb-5 border-b border-white/10">
           <div className="flex items-center gap-2">
@@ -1296,9 +1296,9 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-subtle-grid text-slate-100 flex flex-col items-center justify-start px-4 sm:px-6 py-12 relative overflow-hidden">
       {/* Subtle, unslop background gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[720px] h-[340px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="no-print absolute top-0 left-1/2 -translate-x-1/2 w-[720px] h-[340px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="w-full max-w-3xl relative z-10">
+      <div className="w-full max-w-3xl relative z-10 no-print">
         {/* ── Clean Header (Product Sans / Google Sans look) ── */}
         <header className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full card-clean text-xs font-medium text-slate-300 mb-4">
