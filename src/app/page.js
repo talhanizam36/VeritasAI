@@ -680,29 +680,29 @@ function ForensicAuditCertificateModal({ result, preview, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-slate-950 border border-white/15 rounded-3xl p-6 sm:p-10 text-slate-100 shadow-2xl my-8">
-        {/* Top Control Bar (Hidden when printing) */}
-        <div className="no-print flex items-center justify-between pb-6 mb-6 border-b border-white/10">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-4xl bg-slate-950 border border-white/15 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 text-slate-100 shadow-2xl my-4 sm:my-8 max-h-[92vh] overflow-y-auto">
+        {/* Top Control Bar (Sticky & Hidden when printing) */}
+        <div className="no-print sticky top-0 z-20 bg-slate-950/95 backdrop-blur-sm flex items-center justify-between pb-4 mb-5 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-            <span className="font-mono text-xs uppercase tracking-wider text-slate-400">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-slate-400">
               Official Cryptographic Audit Certificate
             </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={handlePrint}
-              className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-sans text-xs font-medium flex items-center gap-2 shadow-lg shadow-indigo-600/30 transition-all active:scale-95"
+              className="px-3 sm:px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-sans text-xs font-medium flex items-center gap-1.5 sm:gap-2 shadow-lg shadow-indigo-600/30 transition-all active:scale-95 cursor-pointer"
             >
               <span>🖨️</span>
-              <span>Print / Download PDF</span>
+              <span>Print / Save PDF</span>
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 text-xs transition-all"
+              className="px-3 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 text-xs transition-all active:scale-95 cursor-pointer"
             >
               ✕ Close
             </button>
